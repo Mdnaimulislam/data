@@ -23,8 +23,6 @@ jobs:
         with:
           project: https://github.com/orgs/pykale/projects/4
           column_name: To do
-          action: opened
-          repo-token: ${{ env.GITHUB_TOKEN }}
 
   add-pull-request-to-project:
     name: Assign NEW pull request to project with "In progress" status
@@ -36,8 +34,6 @@ jobs:
         with:
           project: https://github.com/orgs/pykale/projects/4
           column_name: In progress
-          action: opened
-          repo-token: ${{ env.GITHUB_TOKEN }}
 
   move-issue-to-in-progress:
     name: Move issue to "In progress" column when "work-in-progress" label is assigned
