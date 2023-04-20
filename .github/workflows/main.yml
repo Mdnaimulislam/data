@@ -22,7 +22,7 @@ jobs:
     if: github.event_name == 'issues' && github.event.action == 'opened'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/add-to-project@v0.5.0
+      - uses: actions/add-to-project@RELEASE_VERSION
         with:
           project-url: https://github.com/users/Mdnaimulislam/projects/1
           column-name: To do
@@ -33,7 +33,7 @@ jobs:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/add-to-project@v0.5.0
+      - uses: actions/add-to-project@RELEASE_VERSION
         with:
           project-url: https://github.com/users/Mdnaimulislam/projects/1
           column-name: In progress
