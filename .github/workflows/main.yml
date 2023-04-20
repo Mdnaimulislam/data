@@ -12,7 +12,7 @@ jobs:
     steps:
     - name: Move issue to issue column
       if: github.event_name == 'issues'
-      uses: takanabe/github-actions-automate-projects@v1.3.1
+      uses: docker://takanabe/github-actions-automate-projects:v0.0.1
       with:
         project_name: shovon
         column_name: To do
@@ -20,7 +20,7 @@ jobs:
       
     - name: Move pull request to PR column
       if: github.event_name == 'pull_request'
-      uses: takanabe/github-actions-automate-projects@v1.3.1
+      uses: docker://takanabe/github-actions-automate-projects:v0.0.1
       with:
         project_name: shovon
         column_name: In progress
