@@ -15,7 +15,7 @@ env:
 jobs:
   add-issue-to-project:
     name: Assign NEW issue to project with "To do" status
-    if: github.event_name == "issues" && github.event.action == "opened"
+    if: github.event_name == 'issues' && github.event.action == 'opened'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/add-to-project@v0.5.0
@@ -25,7 +25,7 @@ jobs:
 
   add-pull-request-to-project:
     name: Assign NEW pull request to project with "In progress" status
-    if: github.event_name == "pull_request"
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/add-to-project@v0.5.0
@@ -35,7 +35,7 @@ jobs:
 
   move-issue-to-in-progress:
     name: Move issue to "In progress" column when "work-in-progress" label is assigned
-    if: github.event_name == "issues" && github.event.action == "labeled" && contains(github.event.issue.labels.*.name, "work-in-progress")
+    if: github.event_name == 'issues' && github.event.action == 'labeled' && contains(github.event.issue.labels.*.name, 'work-in-progress')
     runs-on: ubuntu-latest
     steps:
       - name: Move issue to In progress column
