@@ -19,11 +19,12 @@ jobs:
           const projectId = 1;
           const columnName = 'Issues';
           const issueId = context.issue.node_id;
+          const { repo: { owner, repo } } = context;
 
-          const columns = await github.projects.listColumns({ project_id: projectId });
+          const columns = await github.rest.projects.listColumns({ project_id: projectId });
           const column = columns.data.find(column => column.name === columnName);
 
-          await github.projects.createCard({
+          await github.rest.projects.createCard({
             column_id: column.id,
             content_id: issueId,
             content_type: 'Issue'
@@ -38,11 +39,12 @@ jobs:
           const projectId = 1;
           const columnName = 'Pull Requests';
           const pullRequestId = context.payload.pull_request.node_id;
+          const { repo: { owner, repo } } = context;
 
-          const columns = await github.projects.listColumns({ project_id: projectId });
+          const columns = await github.rest.projects.listColumns({ project_id: projectId });
           const column = columns.data.find(column => column.name === columnName);
 
-          await github.projects.createCard({
+          await github.rest.projects.createCard({
             column_id: column.id,
             content_id: pullRequestId,
             content_type: 'PullRequest'
