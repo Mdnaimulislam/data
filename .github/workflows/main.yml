@@ -10,7 +10,7 @@ on:
     types: [opened, labeled]
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
 
 jobs:
   add-issue-to-project:
@@ -53,7 +53,7 @@ jobs:
               project_id: projectId,
               headers: {
                 "Accept": "application/vnd.github+json",
-                "Authorization": `token ${process.env.GITHUB_TOKEN}`
+                "Authorization": `token ${process.env.ACTIONS_DEPLOY_KEY}`
               }
             });
             // Get project columns
