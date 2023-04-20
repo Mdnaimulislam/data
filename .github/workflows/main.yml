@@ -21,7 +21,7 @@ jobs:
       - name: Assign issue to To do column
         uses: srggrs/assign-one-project-github-action@1.2.1
         with:
-          project: https://github.com/orgs/pykale/projects/4
+          project: https://github.com/users/Mdnaimulislam/projects/1
           column_name: To do
 
   add-pull-request-to-project:
@@ -32,7 +32,7 @@ jobs:
       - name: Assign PR to In progress column
         uses: srggrs/assign-one-project-github-action@1.2.1
         with:
-          project: https://github.com/orgs/pykale/projects/4
+          project: https://github.com/users/Mdnaimulislam/projects/1
           column_name: In progress
 
   move-issue-to-in-progress:
