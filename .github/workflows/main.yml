@@ -12,40 +12,18 @@ jobs:
     steps:
     - name: Move issue to issue column
       if: github.event_name == 'issues'
-      uses: actions/github-script@v5
+      uses: alex-page/gh-project-automation@v1
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const projectId = 1;
-          const columnName = 'Issues';
-          const issueId = context.issue.node_id;
-          const { repo: { owner, repo } } = context;
-
-          const columns = await github.rest.projects.listColumns({ project_id: projectId });
-          const column = columns.data.find(column => column.name === columnName);
-
-          await github.rest.projects.createCard({
-            column_id: column.id,
-            content_id: issueId,
-            content_type: 'Issue'
-          });
-
+        project: shovon
+        column: Issues
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        event_type: ${{ github.event_name }}
+      
     - name: Move pull request to PR column
       if: github.event_name == 'pull_request'
-      uses: actions/github-script@v5
+      uses: alex-page/gh-project-automation@v1
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const projectId = 1;
-          const columnName = 'Pull Requests';
-          const pullRequestId = context.payload.pull_request.node_id;
-          const { repo: { owner, repo } } = context;
-
-          const columns = await github.rest.projects.listColumns({ project_id: projectId });
-          const column = columns.data.find(column => column.name === columnName);
-
-          await github.rest.projects.createCard({
-            column_id: column.id,
-            content_id: pullRequestId,
-            content_type: 'PullRequest'
-          });
+        project: shovon
+        column: Pull Requests
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        event_type: ${{ github.event_name }}
