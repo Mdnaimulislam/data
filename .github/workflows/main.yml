@@ -26,6 +26,7 @@ jobs:
         with:
           project-url: https://github.com/users/Mdnaimulislam/projects/1
           column-name: To do
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   add-pull-request-to-project:
     name: Assign NEW pull request to project with In progress status
@@ -36,6 +37,7 @@ jobs:
         with:
           project-url: https://github.com/users/Mdnaimulislam/projects/1
           column-name: In progress
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   move-issue-to-in-progress:
     name: Move issue to In progress column when work-in-progress label is assigned
