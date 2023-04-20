@@ -1,40 +1,49 @@
-# This workflow will automatically assign issues and pull requests to the new default project and relocate issues to the project based on changes in their labels.
-# https://github.com/actions/add-to-project
-
-name: assign-project
+name: Move Issue or PR to Project Column
 
 on:
   issues:
-    types:
-      - opened
-      - labeled
+    types: [opened]
   pull_request:
-    types:
-      - opened
-      - labeled
-
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    types: [opened]
 
 jobs:
-  add-issue-to-project:
-    name: Assign NEW issue to project with To do status
-    if: github.event_name == 'issues' && github.event.action == 'opened'
+  move_item_to_project_column:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/add-to-project@v0.5.0
-        with:
-          project-url: https://github.com/users/Mdnaimulislam/projects/1
-          column-name: To do
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Move issue to issue column
+      if: github.event_name == 'issues'
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const projectId = 1;
+          const columnName = 'Issues';
+          const issueId = context.issue.node_id;
 
-  add-pull-request-to-project:
-    name: Assign NEW pull request to project with In progress status
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/add-to-project@v0.5.0
-        with:
-          project-url: https://github.com/users/Mdnaimulislam/projects/1
-          column-name: In progress
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          const columns = await github.projects.listColumns({ project_id: projectId });
+          const column = columns.data.find(column => column.name === columnName);
+
+          await github.projects.createCard({
+            column_id: column.id,
+            content_id: issueId,
+            content_type: 'Issue'
+          });
+
+    - name: Move pull request to PR column
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const projectId = 1;
+          const columnName = 'Pull Requests';
+          const pullRequestId = context.payload.pull_request.node_id;
+
+          const columns = await github.projects.listColumns({ project_id: projectId });
+          const column = columns.data.find(column => column.name === columnName);
+
+          await github.projects.createCard({
+            column_id: column.id,
+            content_id: pullRequestId,
+            content_type: 'PullRequest'
+          });
