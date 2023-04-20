@@ -12,18 +12,16 @@ jobs:
     steps:
     - name: Move issue to issue column
       if: github.event_name == 'issues'
-      uses: alex-page/gh-project-automation@v1
+      uses: takanabe/github-actions-automate-projects@v1.3.1
       with:
-        project: shovon
-        column: Issues
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        event_type: ${{ github.event_name }}
+        project_name: shovon
+        column_name: To do
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
       
     - name: Move pull request to PR column
       if: github.event_name == 'pull_request'
-      uses: alex-page/gh-project-automation@v1
+      uses: takanabe/github-actions-automate-projects@v1.3.1
       with:
-        project: shovon
-        column: Pull Requests
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        event_type: ${{ github.event_name }}
+        project_name: shovon
+        column_name: In progress
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
