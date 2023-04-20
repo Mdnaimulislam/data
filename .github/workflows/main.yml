@@ -18,20 +18,26 @@ jobs:
     if: github.event_name == 'issues' && github.event.action == 'opened'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/add-to-project@v0.5.0
+      - name: Assign issue to To do column
+        uses: srggrs/assign-one-project-github-action@1.2.1
         with:
-          project-url: https://github.com/orgs/pykale/projects/4
-          column-name: To do
+          project: https://github.com/orgs/pykale/projects/4
+          column_name: To do
+          action: opened
+          repo-token: ${{ env.GITHUB_TOKEN }}
 
   add-pull-request-to-project:
     name: Assign NEW pull request to project with "In progress" status
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/add-to-project@v0.5.0
+      - name: Assign PR to In progress column
+        uses: srggrs/assign-one-project-github-action@1.2.1
         with:
-          project-url: https://github.com/orgs/pykale/projects/4
-          column-name: In progress
+          project: https://github.com/orgs/pykale/projects/4
+          column_name: In progress
+          action: opened
+          repo-token: ${{ env.GITHUB_TOKEN }}
 
   move-issue-to-in-progress:
     name: Move issue to "In progress" column when "work-in-progress" label is assigned
